@@ -36,7 +36,12 @@ React JS는 업데이트 해야 하는 HTML을 업데이트 할 수 있음
     function App() {
       const [counter, setCounter] = React.useState(0);
       const onClick = () => {
-        setCounter(counter + 1);
+        /* state 세팅 2가지 방법 */
+        // 1. 직접 설정하는 방법| setCounter(counter + 1);
+        // 2. 함수를 전달(current)| setCounter((current) => current + 1);
+        /* 1,2번 같은 코드지만 2번 코드가 더 안전한 코드이다. */
+
+        setCounter((current) => current + 1);
       };
       return (
         <div>
