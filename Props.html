@@ -29,37 +29,39 @@ React JS는 업데이트 해야 하는 HTML을 업데이트 할 수 있음
     </div>
   </body>
   <!-- 단축키=> script:src  -->
-  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <!-- <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script> -->
+  <!-- 아래 코드 즉 모듈을 이용해서 타입을 검사할 수 있다. -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
   <!-- <link rel="stylesheet" href="style.css" /> -->
   <script type="text/babel">
-    function Btn({ text, onClick }) {
-      console.log(text, "was rendered");
+    function Btn({ text, fontSize = 12 }) {
       return (
         <button
-          onClick={onClick}
           style={{
             backgroundColor: "tomato",
             color: "white",
             padding: "10px 20px",
             border: 0,
             borderRadius: 10,
+            fontSize: fontSize,
           }}
         >
           {text}
         </button>
       );
     }
-
-    const MemorizeBtn = React.memo(Btn);
+    Btn.propTypes = {
+      text: PropTypes.string.isRequired,
+      fontSize: PropTypes.number,
+    };
     function App() {
-      const [value, setValue] = React.useState("Save Changes");
-      const changeValue = () => setValue("Revert Changes");
       return (
         <div>
-          <MemorizeBtn text={value} onClick={changeValue} />
-          <MemorizeBtn text="Continue" />
+          <Btn text="Save Changes" fontSize={30} />
+          <Btn text="Continue" />
         </div>
       );
     }
